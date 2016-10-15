@@ -9,8 +9,9 @@ class Wall {
 
   draw() {
   	this.lines.forEach(function(line) {
-      console.log("Drawing!")
-      ctx.moveTo(line.start.x, line.start.x);
+      //console.log("Drawing!")
+      //console.log(line);
+      ctx.moveTo(line.start.x, line.start.y);
       ctx.lineTo(line.end.x, line.end.y);
       ctx.stroke();
   	});
