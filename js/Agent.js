@@ -8,7 +8,7 @@ var defaultConstants = {
 class Agent {
 
 	constructor(position = new Vector2(0,0),
-		speed = new Vector2(0,0),
+		velocity = new Vector2(0,0),
 		constants = {}) {
 		this.position = position;
 		this.velocity = velocity;
