@@ -88,7 +88,6 @@ function mod_rvec(a, b, p, image, iind){
     return a;
 }
 
-
 function calc_vorticity(){
     var vor = 0.0;
     var cmx = 0.0;
@@ -133,7 +132,6 @@ function nbl_bin(){
         count[tt]++;
     }
 }
-
 
 function update(){
     colavg = 0.0;
@@ -311,7 +309,6 @@ function init_sidelength(L){
         count[i] = 0;
     }
 }
-
 
 function init_empty(){
     r = [];
@@ -533,7 +530,7 @@ function update_allcontrols(){
 }
 
 function create_moshpit(){
-    graph_init(); init_empty();
+    // graph_init(); init_empty();
     n=500; frac=0.15; frameskip = 2;
     vhappy=1.0; noise=2.0;  flock=0.1; epsilon=100; damp=1.0;dt=0.1;
     init_sidelength(calc_sidelength()); init_circle(frac);   dovorticity = true; dodraw=false;update_pause();
@@ -541,7 +538,7 @@ function create_moshpit(){
 }
 
 function create_circlepit(){
-    graph_init(); init_empty();
+    // graph_init(); init_empty();
     n=500; frac=0.15; frameskip = 2;
     vhappy=1.0; noise=0.3;  flock=1.0; epsilon=100; damp=1.0;dt=0.1;
     init_sidelength(calc_sidelength()); init_circle(frac);   dovorticity = true; dodraw=false;update_pause();
@@ -549,7 +546,7 @@ function create_circlepit(){
 }
 
 function create_chains(){
-    graph_init(); init_empty();
+    // graph_init(); init_empty();
     n=500; frac=0.01; frameskip=3;
     vhappy=1.0; noise=0.0;  flock=0.0; epsilon=150; damp=1.0;dt=0.1;
     init_sidelength(48); init_circle(frac);   showforce = true; dodraw=false;update_pause();
@@ -557,7 +554,7 @@ function create_chains(){
 }
 
 function create_crystal(){
-    graph_init(); init_empty();
+    // graph_init(); init_empty();
     n=500; frac=0.01; frameskip=2;
     vhappy=0.0; noise=0.0;  flock=0.0; epsilon=100; damp=1.0;dt=0.1;
     init_sidelength(39.0); init_circle(frac);   showforce = true; dodraw=false;update_pause();
@@ -574,13 +571,13 @@ var init = function() {
     c.style.cursor = 'url('+empty.toDataURL()+')';
     ctx = c.getContext('2d');
 
-    graph_init();
-    graph_clear();
+    // graph_init();
+    // graph_clear();
 
     init_empty();
     init_sidelength(calc_sidelength());
     init_circle(frac);
-    update_allcontrols();
+    // update_allcontrols();
 
     document.body.addEventListener('keyup', function(ev) {
         if (ev.keyCode == 87){ keys[0] = 0; } //up
