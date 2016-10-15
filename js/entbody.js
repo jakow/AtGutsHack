@@ -13,30 +13,30 @@ var ivor=[];
 var ivoravg;
 
 // things we can change
-var n = 500;
-var pbc = [1,1];
+var n = 500;             // number of agents
+var pbc = [0,0];         // periodic boundaries (0/1)
 
-// neighborlist stuff
-var lx, ly;
-var size = [0,0];
+// neighborlist stuff (collision detection and flocking)
+var lx, ly;             // Box sizes (width and height)
+var size = [0,0];        
 var NMAX = 50;
 var cells = [];
 var count = [];
 
 var radius = 1.0;
-var R = 2*radius;
-var FR= 2*R;
-var gdt = 0.1;
+var R = 2*radius;       // 
+var FR= 2*R;            // Flocking radius
+var gdt = 0.1;          // 
 
 // the variables we change
-var epsilon = 100;
-var flock   = 0.55;
-var noise   = 0.0;
+var epsilon = 100;      // parameter for strength of repulsion force
+var flock   = 0.55;     // parameter for strength of flocking force
+var noise   = 0.0;      // Gaussian distributed fluctuations parameter
 
-// some other constants that are 1
-var vhappy = 1.0;
-var damp   = 1.0;
-var frac   = 0.15;
+// some other constants that are 1 (not necessarily 1!)
+var vhappy = 1.0;       // Desired velocity of Moshers (red guys)
+var damp   = 1.0;       // Damping parameter
+var frac   = 0.15;      // Fraction of Moshers (red guys)
 
 // display variables
 var c;
