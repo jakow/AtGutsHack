@@ -6,7 +6,14 @@ constructor(start = new Vector2(0,0), end = new Vector2(0,0)){
 }
 
 	normal() {
-		return new Vector2(-this.vec.y, this.vec.x);
+		return new Vector2(-this.vec.y, this.vec.x).unit();
+	}
+	length() {
+		return this.end.sub(this.start).mag()
+	}
+	minDistance(point) {
+		var len = this.length();
+		var len_sq = len*len;
 	}
 }
 
