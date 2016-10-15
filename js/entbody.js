@@ -302,7 +302,7 @@ function calc_sidelength(){
 
 function init_sidelength(L){
     lx = L;
-    ly = W;
+    //ly = W;
     ly = lx;
     update_boxslider();
 
