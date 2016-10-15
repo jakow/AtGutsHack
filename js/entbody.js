@@ -18,7 +18,7 @@ var pbc = [1,1];         // periodic boundaries (0/1)
 
 // neighborlist stuff (collision detection and flocking)
 var lx, ly;             // Box sizes (width and height)
-var size = [0,0];        
+var size = [0,0];
 var NMAX = 50;
 var cells = [];
 var count = [];
@@ -26,7 +26,7 @@ var count = [];
 var radius = 1.0;       // Radius of the agent (their size)
 var R = 2*radius;       // Radius for detecting contacts with other agents
 var FR= 2*R;            // Flocking radius
-var gdt = 0.1;          // 
+var gdt = 0.1;          //
 
 // the variables we change
 var epsilon = 100;      // parameter for strength of repulsion force
@@ -308,7 +308,8 @@ function calc_sidelength(){
 }
 
 function init_sidelength(L){
-    lx = L;//
+    lx = L;
+    //ly = W;
     ly = lx;
     update_boxslider();
 
@@ -448,7 +449,7 @@ function update_restart(){
     if (dodraw == false){ update_pause(); }
 }
 
-function update_pause(){
+function update_pause() {
     if (dodraw == true){
         document.getElementById('pause').value = 'Start';
         dodraw = false;
@@ -588,6 +589,7 @@ var init = function() {
     // graph_clear();
 
     init_empty();
+    init_sidelength(10);
     init_sidelength(calc_sidelength());
     init_circle(frac);
     // update_allcontrols();
