@@ -19,4 +19,10 @@ class Agent {
 		return this.position.to(agent.position);
 	}
 
+	draw() {
+		ctx.beginPath();
+	  ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+	  ctx.stroke();
+	}
+
 }

@@ -16,7 +16,4 @@ class Wall {
       ctx.stroke();
   	});
   }
-
-
-
 }
