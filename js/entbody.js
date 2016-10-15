@@ -18,15 +18,15 @@ var pbc = [0,0];         // periodic boundaries (0/1)
 
 // neighborlist stuff (collision detection and flocking)
 var lx, ly;             // Box sizes (width and height)
-var size = [0,0];        
+var size = [0,0];
 var NMAX = 50;
 var cells = [];
 var count = [];
 
 var radius = 1.0;
-var R = 2*radius;       // 
+var R = 2*radius;       //
 var FR= 2*R;            // Flocking radius
-var gdt = 0.1;          // 
+var gdt = 0.1;          //
 
 // the variables we change
 var epsilon = 100;      // parameter for strength of repulsion force
@@ -301,7 +301,8 @@ function calc_sidelength(){
 }
 
 function init_sidelength(L){
-    lx = L;//
+    lx = L;
+    //ly = W;
     ly = lx;
     update_boxslider();
 
@@ -581,6 +582,7 @@ var init = function() {
     // graph_clear();
 
     init_empty();
+    init_sidelength(10);
     init_sidelength(calc_sidelength());
     init_circle(frac);
     // update_allcontrols();
