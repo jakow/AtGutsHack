@@ -13,8 +13,8 @@ var ivor=[];
 var ivoravg;
 
 // things we can change
-var n = 500;             // number of agents
-var pbc = [0,0];         // periodic boundaries (0/1)
+var n = 400;             // number of agents
+var pbc = [1,1];         // periodic boundaries (0/1)
 
 // neighborlist stuff (collision detection and flocking)
 var lx, ly;             // Box sizes (width and height)
@@ -23,8 +23,8 @@ var NMAX = 50;
 var cells = [];
 var count = [];
 
-var radius = 1.0;
-var R = 2*radius;       // 
+var radius = 1.0;       // Radius of the agent (their size)
+var R = 2*radius;       // Radius for detecting contacts with other agents
 var FR= 2*R;            // Flocking radius
 var gdt = 0.1;          // 
 
@@ -35,8 +35,8 @@ var noise   = 0.0;      // Gaussian distributed fluctuations parameter
 
 // some other constants that are 1 (not necessarily 1!)
 var vhappy = 1.0;       // Desired velocity of Moshers (red guys)
-var damp   = 1.0;       // Damping parameter
-var frac   = 0.15;      // Fraction of Moshers (red guys)
+var damp   = 1.0;       // Damping parameter, mu in the equation (propulsion)
+var frac   = 0.01;      // Fraction of Moshers (red guys)
 
 // display variables
 var c;
@@ -167,6 +167,8 @@ function update(){
                     var dx = x[j] - x[i]; if (image[0]) {dx += lx*ttx;}
                     var dy = y[j] - y[i]; if (image[1]) {dy += ly*tty;}
                     var l = Math.sqrt(dx*dx + dy*dy);
+
+                    // Calculate the repulsion force
                     if (l > 1e-6 && l < R){
                         var r0 = (r[i]+r[j]);
                         var f = (1-l/r0);
@@ -179,25 +181,30 @@ function update(){
                     }
                     if (type[i] == 1 && type[j] == 1 && l > 1e-6 && l < FR){
                         wx += vx[j]; wy += vy[j];
-                        neigh++;
+                        neigh++;ds
                     }
                 }
             }
         } }
+
+        // Calculate the flocking force
         var wlen = (wx*wx + wy*wy);
         if (type[i] == 1 && neigh > 0 && wlen > 1e-6){
             fx[i] += flock * wx / wlen;
             fy[i] += flock * wy / wlen;
         }
 
+        // Calculate the propulsion force
         var vlen = (vx[i]*vx[i] + vy[i]*vy[i]);
         var vhap = 0.0;
-        if (type[i]==1) { vhap = vhappy; } else { vhap = 0.0; }
+        // Define vhappy for both types of agents
+        if (type[i]==1) { vhap = vhappy; } else { vhap = 0.5; }
         if (vlen > 1e-6){
             fx[i] += damp*(vhap - vlen)*vx[i]/vlen;
             fy[i] += damp*(vhap - vlen)*vy[i]/vlen;
         }
 
+        // Calculate the noise force
         if (type[i] == 1){
             fx[i] += noise * (Math.random()-0.5);
             fy[i] += noise * (Math.random()-0.5);
