@@ -11,6 +11,7 @@ class Vector2 {
 		var mag = this.mag();
 		return new Vector2(this.x/mag, this.y/mag);
 	}
+
 	mag() {
 		return Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
 	}
