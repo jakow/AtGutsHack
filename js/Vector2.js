@@ -28,11 +28,11 @@ class Vector2 {
 		return new Vector2(other.x - this.x, other.y - this.y);
 	}
 	from(other) {
-		return this.to.times(-1)
+		return this.to.times(-1);
 	}
 
 	dot(other) { 
-		return new Vector(this.x* other.x, this.y*other.y)
+		return this.x* other.x + this.y*other.y;
 	}
 
 }
