@@ -20,6 +20,9 @@ class Vector2 {
 	}
 	add(other) {
 		return new Vector2(this.x+other.x, this.y+other.y);
+	}	
+	sub(other) {
+		return new Vector2(this.x-other.x, this.y-other.y);
 	}
 	to(other) {
 		return new Vector2(other.x - this.x, other.y - this.y);
