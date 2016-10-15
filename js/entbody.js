@@ -36,7 +36,7 @@ var noise   = 0.0;      // Gaussian distributed fluctuations parameter
 // some other constants that are 1 (not necessarily 1!)
 var vhappy = 1.0;       // Desired velocity of Moshers (red guys)
 var damp   = 1.0;       // Damping parameter
-var frac   = 0.15;      // Fraction of Moshers (red guys)
+var frac   = 0.01;      // Fraction of Moshers (red guys) 0.15 default. Setting to 0.01 ensure only 1 red dude
 
 // display variables
 var c;
@@ -47,7 +47,7 @@ var keys = [0,0,0,0];
 var frameskip = 2;
 var colscale=25;
 var dodraw = true;
-var docircle = true;
+var docircle = false;
 var dovorticity = false;
 var showforce = false;
 var playmusic = false;
@@ -300,11 +300,11 @@ function calc_sidelength(){
     return Math.floor(1.03*Math.sqrt(Math.PI*radius*radius*n));
 }
 
-function init_sidelength(L){
-    lx = L;
-    //ly = W;
-    ly = lx;
-    update_boxslider();
+function init_sidelength(L, W){
+    lx = W;
+    ly = L;
+    //ly = lx;
+    //update_boxslider();
 
     /* initialize the neighborlist */
     size[0] = Math.floor(lx / FR);
@@ -582,8 +582,10 @@ var init = function() {
     // graph_clear();
 
     init_empty();
-    init_sidelength(10);
-    init_sidelength(calc_sidelength());
+
+    init_sidelength(50,70);
+
+    // init_sidelength(calc_sidelength());
     init_circle(frac);
     // update_allcontrols();
 
