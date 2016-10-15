@@ -131,7 +131,7 @@ function nbl_bin(){
         count[i] = 0;
     }
     for (var i=0; i<n; i++){
-        var indx = Math.floor(x[i]/lx * size[0]);
+        var indx = Math.floor(x[i]/lx * sssize[0]);
         var indy = Math.floor(y[i]/ly * size[1]);
         var tt = indx + indy*size[0];
         cells[NMAX*tt + count[tt]] = i;
