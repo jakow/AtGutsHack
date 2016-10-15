@@ -1,4 +1,6 @@
 // all of the global variables for dynamics
+
+(function() {
 var x=[];
 var y=[];
 var vx=[];
@@ -13,20 +15,20 @@ var ivor=[];
 var ivoravg;
 
 // things we can change
-var n = 400;             // number of agents
-var pbc = [1,1];         // periodic boundaries (0/1)
+var n = 500;             // number of agents
+var pbc = [0,0];         // periodic boundaries (0/1)
 
 // neighborlist stuff (collision detection and flocking)
 var lx, ly;             // Box sizes (width and height)
-var size = [0,0];
+var size = [0,0];        
 var NMAX = 50;
 var cells = [];
 var count = [];
 
-var radius = 1.0;       // Radius of the agent (their size)
-var R = 2*radius;       // Radius for detecting contacts with other agents
+var radius = 1.0;
+var R = 2*radius;       // 
 var FR= 2*R;            // Flocking radius
-var gdt = 0.1;          //
+var gdt = 0.1;          // 
 
 // the variables we change
 var epsilon = 100;      // parameter for strength of repulsion force
@@ -131,7 +133,7 @@ function nbl_bin(){
         count[i] = 0;
     }
     for (var i=0; i<n; i++){
-        var indx = Math.floor(x[i]/lx * sssize[0]);
+        var indx = Math.floor(x[i]/lx * size[0]);
         var indy = Math.floor(y[i]/ly * size[1]);
         var tt = indx + indy*size[0];
         cells[NMAX*tt + count[tt]] = i;
@@ -167,8 +169,6 @@ function update(){
                     var dx = x[j] - x[i]; if (image[0]) {dx += lx*ttx;}
                     var dy = y[j] - y[i]; if (image[1]) {dy += ly*tty;}
                     var l = Math.sqrt(dx*dx + dy*dy);
-
-                    // Calculate the repulsion force
                     if (l > 1e-6 && l < R){
                         var r0 = (r[i]+r[j]);
                         var f = (1-l/r0);
@@ -181,30 +181,25 @@ function update(){
                     }
                     if (type[i] == 1 && type[j] == 1 && l > 1e-6 && l < FR){
                         wx += vx[j]; wy += vy[j];
-                        neigh++;ds
+                        neigh++;
                     }
                 }
             }
         } }
-
-        // Calculate the flocking force
         var wlen = (wx*wx + wy*wy);
         if (type[i] == 1 && neigh > 0 && wlen > 1e-6){
             fx[i] += flock * wx / wlen;
             fy[i] += flock * wy / wlen;
         }
 
-        // Calculate the propulsion force
         var vlen = (vx[i]*vx[i] + vy[i]*vy[i]);
         var vhap = 0.0;
-        // Define vhappy for both types of agents
-        if (type[i]==1) { vhap = vhappy; } else { vhap = 0.5; }
+        if (type[i]==1) { vhap = vhappy; } else { vhap = 0.0; }
         if (vlen > 1e-6){
             fx[i] += damp*(vhap - vlen)*vx[i]/vlen;
             fy[i] += damp*(vhap - vlen)*vy[i]/vlen;
         }
 
-        // Calculate the noise force
         if (type[i] == 1){
             fx[i] += noise * (Math.random()-0.5);
             fy[i] += noise * (Math.random()-0.5);
@@ -308,8 +303,7 @@ function calc_sidelength(){
 }
 
 function init_sidelength(L){
-    lx = L;
-    //ly = W;
+    lx = L;//
     ly = lx;
     update_boxslider();
 
@@ -449,7 +443,7 @@ function update_restart(){
     if (dodraw == false){ update_pause(); }
 }
 
-function update_pause() {
+function update_pause(){
     if (dodraw == true){
         document.getElementById('pause').value = 'Start';
         dodraw = false;
@@ -589,7 +583,6 @@ var init = function() {
     // graph_clear();
 
     init_empty();
-    init_sidelength(10);
     init_sidelength(calc_sidelength());
     init_circle(frac);
     // update_allcontrols();
@@ -656,3 +649,5 @@ if (MONITOR_GLOBALS) {
       }, 1000);
     })();
 }
+
+})();
