@@ -59,15 +59,21 @@ function rgb(r,g,b) {
 }
 
 function toFixed(value, precision) {
-    var precision = precision || 0,
-    neg = value < 0,
-    power = Math.pow(10, precision),
-    value = Math.round(value * power),
-    integral = String((neg ? Math.ceil : Math.floor)(value / power)),
-    fraction = String((neg ? -value : value) % power),
-    padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
+    // THE HELL?
+    // var precision = precision || 0, //  convert 'precision' to an integer
+    // neg = value < 0, // is the value less than 0?
+    // power = Math.pow(10, precision),
+    // value = Math.round(value * power),
+    // integral = String((neg ? Math.ceil : Math.floor)(value / power)),
+    // fraction = String((neg ? -value : value) % power),
+    // padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
 
-    return precision ? integral + '.' +  padding + fraction : integral;
+    // return precision ? integral + '.' +  padding + fraction : integral;
+
+    var numStr = value.toString();
+    var dotPos = numStr.indexOf('.');
+    var integerLength = (dotPos !== -1) ? dotPos :  numStr.length + (numStr < 1)
+    return value.toPrecision(integerLength+precision);
 }
 
 function mymod(a, b){
