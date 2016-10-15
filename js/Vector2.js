@@ -7,7 +7,7 @@ class Vector2 {
 		return `[${this.x}, ${this.y}]`
 	}
 
-	normal() {
+	unit() {
 		var mag = this.mag();
 		return new Vector2(this.x/mag, this.y/mag);
 	}
@@ -16,6 +16,9 @@ class Vector2 {
 	}
 	times(scalar) {
 		return new Vector2(this.x*scalar, this.y * scalar);
+	}
+	add(other) {
+		return new Vector2(this.x+other.x, this.y+other.y);
 	}
 	to(other) {
 		return new Vector2(other.x - this.x, other.y - this.y);
