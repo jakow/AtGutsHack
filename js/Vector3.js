@@ -2,7 +2,7 @@ var pow = Math.pow;
 function pow2(x) { return Math.pow(x,2)}
 var sqrt = Math.sqrt;
 class Vector3 {
-	constructor(x, y, z) {
+	constructor(x = 0 , y = 0, z = 0) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
