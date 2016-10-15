@@ -442,7 +442,7 @@ function update_restart(){
     if (dodraw == false){ update_pause(); }
 }
 
-function update_pause(){
+function update_pause() {
     if (dodraw == true){
         document.getElementById('pause').value = 'Start';
         dodraw = false;
