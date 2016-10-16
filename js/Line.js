@@ -14,7 +14,7 @@ constructor(start = new Vector2(0,0), end = new Vector2(0,0)){
 	minDistanceTo(point) {
 		var len = this.length();
 		var len_sq = len*len;
-		
+
 		var start = this.start;
 		var end = this.end;
 		if (len_sq === 0) return point.distanceFrom(start);
@@ -28,7 +28,7 @@ constructor(start = new Vector2(0,0), end = new Vector2(0,0)){
 			var projection = start.add(end.sub(start).times(t));
 			return point.distanceFrom(projection);
 		}
-	
+
 	}
 }
 
@@ -36,13 +36,12 @@ var line = new Line(new Vector2(2.5,3), new Vector2(4,1));
 var point = new Vector2(1,4);
 var point2 = new Vector2(1,1);
 var point3 = new Vector2(0,0);
-console.log(line.minDistanceTo(point));
-console.log(line.minDistanceTo(point2));
+// console.log(line.minDistanceTo(point));
+// console.log(line.minDistanceTo(point2));
 
 var l2 = new Line(new Vector2(4,4), new Vector2(4,1));
 
-console.log(l2.minDistanceTo(new Vector2(2,2)))
+// console.log(l2.minDistanceTo(new Vector2(2,2)))
 
 var line0 = new Line;
 line0.minDistanceTo(point2);
-
