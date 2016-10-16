@@ -14,7 +14,7 @@ class Agent {
 		this.position = position;
 		this.velocity = velocity;
 		this.desiredVelocity = 0;
-		this.constants = _.extend({}, defaultConstants, constant);
+		this.constants = _.extend({}, defaultConstants, constants);
 	}
 
 	distanceTo(agent) {
@@ -36,11 +36,11 @@ class Agent {
 
 		var sum = [repF, propF, flockF, noiseF]
 		.reduce((acc,curr) => acc.add(curr));
-		
+
 		return this.velocity.add(sum.times(timestep));
 	}
 	setPosition(newVelocity) {
-		return new Agent(this.position + newVelocity*timestep, 
+		return new Agent(this.position + newVelocity*timestep,
 						newVelocity,
 						this.desiredVelocity,
 						this.constants);
