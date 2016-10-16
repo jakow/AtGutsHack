@@ -30,5 +30,3 @@ function generateAgents(positions, desiredVelocity) {
 		(new Agent(pos, new Vector2(0,0), desiredVelocity))
 	)
 }
-
-

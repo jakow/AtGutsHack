@@ -1,5 +1,3 @@
-
-
 // rij - center to center distance 	
 // l - distance between two agent
 var radius = 10;
@@ -28,7 +26,7 @@ function propulsion(desired, current) {
 
 function flocking(others) {
 	var sum = others.reduce(function(prev, currAgent) {
-		return prev.add(currAgent.velocity)}, 
+		return prev.add(currAgent.velocity)},
 		new Vector2(0,0));
 	if (sum.mag() == 0)
 		return new Vector2(0,0);
