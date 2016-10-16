@@ -24,7 +24,7 @@ function generatePositions (nAgents, xMin, xMax, yMin, yMax){
 
 function generateAgents(positions) {
 	return positions.map(pos => 
-		(new Agent(pos, new Vector2(0,0), new Vector2(1,0)))
+		(new Agent(pos, new Vector2(0,0), new Vector2(100,0)))
 	)
 }
 

@@ -22,7 +22,7 @@ function repulsion(distance) {
 }
 
 function propulsion(desired, current) {
-	return current.unit().times(damp*(desired.mag() - current.mag()));
+	return desired.unit().times(damp*(desired.mag() - current.mag()));
 }
 
 function flocking(others) {
