@@ -1,8 +1,8 @@
 
 
-// rij - center to center distance
+// rij - center to center distance 	
 // l - distance between two agent
-var radius = 1;
+var radius = 10;
 var contactRadius = 2 * radius;
 var flockingRadius = 4 * radius;
 var epsilon = 100; // strength of repulsion
@@ -26,9 +26,13 @@ function propulsion(desired, current) {
 }
 
 function flocking(others) {
-	var sum = others.reduce((prev, curr) => (prev.add(curr)), 
+	var sum = others.reduce(function(prev, currAgent) {
+		return prev.add(currAgent.velocity)}, 
 		new Vector2(0,0));
-	return sum.times(flock/sum.mag());
+	if (sum.mag() == 0)
+		return new Vector2(0,0);
+	else
+		return sum.times(flock/sum.mag());
 }
 
 function noise() {

@@ -31,22 +31,22 @@ class Agent {
 				.distanceTo(agent.position)
 				.mag() < this.constants.flockingRadius);
 			
-		var repForces = otherAgents.map(agent => (
+		var repForces = repulsedBy.map(agent => (
 			repulsion(this.position.distanceTo(agent.position)
 		)));
 
 		var repF = repForces.reduce((acc, curr) => acc.add(curr), new Vector2(0,0));
 		var propF = propulsion(this.desiredVelocity, this.velocity);
-		var flockF = flocking(otherAgents);
-		var noiseF = 0;
-
+		// console.log(otherAgents);
+		var flockF = flocking(flockingWith);
+		var noiseF = new Vector2(0,0);
 		var sum = [repF, propF, flockF, noiseF]
 		.reduce((acc,curr) => acc.add(curr));
 
 		return this.velocity.add(sum.times(timestep));
 	}
 	setPosition(newVelocity) {
-		return new Agent(this.position + newVelocity*timestep,
+		return new Agent(this.position.add(newVelocity.times(timestep)),
 						newVelocity,
 						this.desiredVelocity,
 						this.constants);

@@ -7,14 +7,18 @@ class Vector2 {
 		return `[${this.x}, ${this.y}]`
 	}
 
-	unit() {
-		var mag = this.mag();
-		return new Vector2(this.x/mag, this.y/mag);
-	}
-
 	mag() {
 		return Math.sqrt(Math.pow(this.x,2) + Math.pow(this.y,2));
 	}
+
+	unit() {
+		let mag = this.mag();
+		if (mag == 0) 
+			return new Vector2(0,0);
+		else 
+			return new Vector2(this.x/mag, this.y/mag);
+	}
+
 	times(scalar) {
 		return new Vector2(this.x*scalar, this.y * scalar);
 	}
