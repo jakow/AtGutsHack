@@ -1,7 +1,8 @@
 // Add checking if agant was spawned on the LINE/WALL
 // Create new agents at postitions specified by positions array
 
-var timestep = 0.03;
+var solverStep = 0.03;
+var fps = 30;
 function init() {
 c = document.getElementById('canvas2');
 ctx = document.getElementById('canvas2').getContext('2d');
@@ -19,12 +20,21 @@ function recomputePositions() {
  	return agents;
 }
 
-recomputePositions();
-
-function frame() {
-  ctx.clearRect(0,0,c.width,c.height);
-	recomputePositions().map(agent => agent.draw());
+function solve() {
+	agents = recomputePositions();
 }
-var tick = setInterval(frame, timestep*1000);
+
+function frame(timestamp) {
+  ctx.clearRect(0,0,c.width,c.height);
+	agents.forEach(function(agent) {
+		agent.draw();
+	});
+	requestAnimationFrame(frame);
+}
+
+var tick = setInterval(solve, solverStep*1000);
+var start = 0;
+requestAnimationFrame(frame);
+
 // setTimeout(tick => clearInterval(tick), 10000);
 } window.onload = init;

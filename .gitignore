@@ -46,3 +46,4 @@ jspm_packages
 
 # bower
 bower_components
+.DS_Store
