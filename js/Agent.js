@@ -2,7 +2,8 @@
 var defaultConstants = {
 		radius: 10,
 		contactRadius: 20,
-		flockingRadius: 40
+		flockingRadius: 40,
+		maxSpeed: 20
 	}
 
 class Agent {
@@ -21,29 +22,61 @@ class Agent {
 		return this.position.distanceTo(agent.position);
 	}
 
-	computeVelocity(otherAgents) {
+	computeVelocity(otherAgents, walls) {
+		let contactRadius = this.constants.contactRadius;
+		let maxSpeed = this.constants.maxSpeed;
+
 		if (!Array.isArray(otherAgents)) throw new Error("Agent: No other agents given");
-		var repulsedBy = otherAgents.filter(
+		var repulsedAgents = otherAgents.filter(
 			agent => (this.position.distanceTo(agent.position)
-						.mag() < this.constants.contactRadius));
+						.mag() < contactRadius));
+
+
+		var repulsedWalls = walls.filter((wall) =>
+			 {
+
+			 	var distanceVector = wall.lines[0].minDistanceTo(this.position)
+			 	var distance = distanceVector.mag();
+			 	// console.log('dist: ', distance, distanceVector);
+		 		return distance < contactRadius;
+			 } 
+		);
+
+		// repulsedWalls.forEach(wall => console.log(wall.lines[0].minDistanceTo(this.position)));
+		// console.log(repulsedWalls);
+
 		var flockingWith = otherAgents.filter(agent => 
 			this.position
 				.distanceTo(agent.position)
 				.mag() < this.constants.flockingRadius);
 			
-		var repForces = repulsedBy.map(agent => (
-			repulsion(this.position.distanceTo(agent.position)
-		)));
+		var repAgents = repulsedAgents.map(agent => (
+			repulsion(this.position.distanceTo(agent.position))
+			));
+		var repAgentF = repAgents.reduce((acc, curr) => acc.add(curr), new Vector2(0,0));
+		
+		var repWalls = repulsedWalls.map(wall => {
+			// console.log(this.position);
+			var distance = wall.lines[0].minDistanceTo(this.position);
+			var rep =  repulsion(distance.times(1));
+			// console.log('Wall repulsion: ', rep);
+			return rep;
+		});
+		// if (repulsedWalls.length) console.log("in contact");
+		var repWallF = repWalls.reduce((acc, curr) => acc.add(curr), new Vector2(0,0));
 
-		var repF = repForces.reduce((acc, curr) => acc.add(curr), new Vector2(0,0));
 		var propF = propulsion(this.desiredVelocity, this.velocity);
 		// console.log(otherAgents);
-		var flockF = flocking(flockingWith);
+		// var flockF = flocking(flockingWith);
+		var flockF = new Vector2(0,0);
 		var noiseF = new Vector2(0,0);
-		var sum = [repF, propF, flockF, noiseF]
+		var sum = [repAgentF, repWallF, propF, flockF, noiseF]
 		.reduce((acc,curr) => acc.add(curr));
 
-		return this.velocity.add(sum.times(timestep));
+		var computedV =  this.velocity.add(sum.times(timestep));
+
+		if (computedV.mag() > maxSpeed) return computedV.unit().times(maxSpeed);
+		else return computedV;
 	}
 	setPosition(newVelocity) {
 		return new Agent(this.position.add(newVelocity.times(timestep)),
@@ -54,7 +87,7 @@ class Agent {
 	}
 	draw() {
 		ctx.beginPath();
-		ctx.arc(this.position.x,this.position.y,this.constants.radius,0,2*Math.PI);
+		ctx.arc(this.position.x,c.height-this.position.y,this.constants.radius,0,2*Math.PI);
 		ctx.stroke();
 	}
 }

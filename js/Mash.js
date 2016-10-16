@@ -5,7 +5,7 @@
 var radius = 10;
 var contactRadius = 2 * radius;
 var flockingRadius = 4 * radius;
-var epsilon = 100; // strength of repulsion
+var epsilon = 20; // strength of repulsion
 var damp = 1; //damping cosntant
 var flock = 0.55;
 var noiseLevel = 0.01;
@@ -15,6 +15,7 @@ var timestep = 0.1;
 
 function repulsion(distance) {
 	if (distance.mag() < contactRadius) {
+		// console.log(distance.mag());
 		return distance.unit().times(-epsilon * (1 - Math.pow(distance.mag()/(2*contactRadius), 2.5)));
 	}
 	else
@@ -22,7 +23,7 @@ function repulsion(distance) {
 }
 
 function propulsion(desired, current) {
-	return desired.unit().times(damp*(desired.mag() - current.mag()));
+	return desired.unit().times(damp*(desired.sub(current).mag()));
 }
 
 function flocking(others) {

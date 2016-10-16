@@ -39,4 +39,9 @@ class Vector2 {
 		return this.x* other.x + this.y*other.y;
 	}
 
+	draw(startPos) {
+		ctx.moveTo(startPos.x, startPos.y);
+		ctx.lineTo(this.x, this.y);
+	} 
+
 }

@@ -14,19 +14,27 @@ constructor(start = new Vector2(0,0), end = new Vector2(0,0)){
 	minDistanceTo(point) {
 		var len = this.length();
 		var len_sq = len*len;
-
+		// console.log(len);
 		var start = this.start;
 		var end = this.end;
-		if (len_sq === 0) return point.distanceFrom(start);
+		if (len_sq === 0) {
+			// console.log('len_sq === 0');
+			return point.distanceFrom(start);
+		}
 		// t defining parametric eq
-		var t = point.sub(start).dot(end.sub(start))/len_sq;
+		var t = (point.sub(start).dot(end.sub(start))/len_sq);
+		// var t = start.sub(p).dot(end.sub(start))/len_sq;
+		// console.log('t: ', t);
 		if (t < 0) return point.distanceFrom(start);
 
 		else if (t > 1) return point.distanceFrom(end);
 
 		else {
 			var projection = start.add(end.sub(start).times(t));
-			return point.distanceFrom(projection);
+			// console.log('projection: ', projection, 'point:', point);
+			var dist = point.distanceTo(projection);
+			// console.log('dist: ', dist);
+			return dist;
 		}
 
 	}

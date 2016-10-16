@@ -3,9 +3,12 @@ function generatePositions (nAgents, xMin, xMax, yMin, yMax){
 	function randomPosition (){
 		return new Vector2(Math.random()*xMax + xMin, Math.random()*yMax + yMin);
 	}
-	function positionExists(newPosition){
+	function positionExists(newPosition) {
 		for (var j = 0; j <= positions.length - 1; j++) {
 			if (newPosition.x === positions[j].x && newPosition.y === positions[j].y) {
+				return true;
+			}
+			else if (contactRadius > newPosition.sub(positions[j]).mag()) {
 				return true;
 			}
 		}
@@ -22,9 +25,11 @@ function generatePositions (nAgents, xMin, xMax, yMin, yMax){
 	return positions;
 }
 
-function generateAgents(positions) {
+function generateAgents(positions, options = {
+	
+}) {
 	return positions.map(pos => 
-		(new Agent(pos, new Vector2(0,0), new Vector2(100,0)))
+		(new Agent(pos, new Vector2(0,0), desiredVelocity))
 	)
 }
 
