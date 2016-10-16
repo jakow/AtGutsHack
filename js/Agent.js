@@ -12,7 +12,7 @@ class Agent {
 		constants = {}) {
 		this.position = position;
 		this.velocity = velocity;
-		this.constants = _.extend({}, defaultConstants, constant);
+		this.constants = _.extend({}, defaultConstants, constants);
 	}
 
 	distanceTo(agent) {
@@ -21,7 +21,7 @@ class Agent {
 
 	draw() {
 		ctx.beginPath();
-	  ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+	  ctx.arc(this.position.x,this.position.y,this.constants.radius,0,2*Math.PI);
 	  ctx.stroke();
 	}
 
