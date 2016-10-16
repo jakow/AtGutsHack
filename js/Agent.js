@@ -48,3 +48,10 @@ class Agent {
 	}
 
 }
+	draw() {
+		ctx.beginPath();
+	  ctx.arc(this.position.x,this.position.y,this.constants.radius,0,2*Math.PI);
+	  ctx.stroke();
+	}
+
+}
