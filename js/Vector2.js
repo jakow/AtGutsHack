@@ -24,11 +24,11 @@ class Vector2 {
 	sub(other) {
 		return new Vector2(this.x-other.x, this.y-other.y);
 	}
-	to(other) {
+	distanceTo(other) {
 		return new Vector2(other.x - this.x, other.y - this.y);
 	}
-	from(other) {
-		return this.to.times(-1);
+	distanceFrom(other) {
+		return new Vector2(this.x - other.x, this.x - other.y);
 	}
 
 	dot(other) { 

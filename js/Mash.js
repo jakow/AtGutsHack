@@ -4,11 +4,13 @@
 // l - distance between two agent
 var radius = 1;
 var contactRadius = 2 * radius;
-var flockingRadius = 2 * radius;
+var flockingRadius = 4 * radius;
 var epsilon = 100; // strength of repulsion
 var damp = 1; //damping cosntant
 var flock = 0.55;
 var noiseLevel = 0.01;
+
+var timestep = 0.1;
 
 
 function repulsion(distance) {

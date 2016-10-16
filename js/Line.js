@@ -11,24 +11,38 @@ constructor(start = new Vector2(0,0), end = new Vector2(0,0)){
 	length() {
 		return this.end.sub(this.start).mag()
 	}
-	minDistance(point) {
+	minDistanceTo(point) {
 		var len = this.length();
 		var len_sq = len*len;
-		// t defining parametric eq
+		
 		var start = this.start;
 		var end = this.end;
+		if (len_sq === 0) return point.distanceFrom(start);
+		// t defining parametric eq
 		var t = point.sub(start).dot(end.sub(start))/len_sq;
-		if (t < 0) return point.to(start).mag();
+		if (t < 0) return point.distanceFrom(start);
 
-		else if (t > 1) return point.to(end).mag();
+		else if (t > 1) return point.distanceFrom(end);
 
 		else {
-			var projection = start + t*end.sub(start);
-			return point.to(projection).mag();
+			var projection = start.add(end.sub(start).times(t));
+			return point.distanceFrom(projection);
 		}
 	
 	}
 }
 
-var line = new Line(new Vector2(0,0), new Vector2(1,1));
-console.log('normal:', line.normal());
+var line = new Line(new Vector2(2.5,3), new Vector2(4,1));
+var point = new Vector2(1,4);
+var point2 = new Vector2(1,1);
+var point3 = new Vector2(0,0);
+console.log(line.minDistanceTo(point));
+console.log(line.minDistanceTo(point2));
+
+var l2 = new Line(new Vector2(4,4), new Vector2(4,1));
+
+console.log(l2.minDistanceTo(new Vector2(2,2)))
+
+var line0 = new Line;
+line0.minDistanceTo(point2);
+
