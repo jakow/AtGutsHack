@@ -1,2 +1,2 @@
-# PanicSimulator
+# CommuterSimulator
 We're at GUTS! 
